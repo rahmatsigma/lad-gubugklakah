@@ -6,7 +6,7 @@ const navItems = [
   { label: 'Sejarah Desa', href: '/history' },
   { label: 'Kepengurusan', href: '/management' },
   { label: 'Galeri', href: '/galery' },
-  { label: 'Artikel', href: '/article' },
+  { label: 'Berita', href: '/article' },
   { label: 'Kontak', href: '/contact' },
 ];
 
@@ -30,7 +30,7 @@ export default function ContactPage() {
           <div className="container mx-auto flex items-center justify-between px-4 py-3 md:px-6">
             <div className="flex items-center gap-3">
               <Image
-                src="/Logo LAD bg hitam.jpg.jpeg"
+                src="/Logo LAD 3D.png"
                 alt="Logo Lembaga Adat Desa Gubugklakah"
                 width={46}
                 height={46}

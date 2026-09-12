@@ -1,16 +1,42 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { supabase } from '../../src/lib/supabase'; // Pastikan jalurnya benar
+
+// 1. Buat tipe data TypeScript untuk Pengurus
+type PengurusItem = {
+  id: number;
+  nama: string;
+  jabatan: string;
+  image_url: string;
+};
 
 const navItems = [
   { label: 'Beranda', href: '/' },
   { label: 'Sejarah Desa', href: '/history' },
   { label: 'Kepengurusan', href: '/management' },
   { label: 'Galeri', href: '/galery' },
-  { label: 'Artikel', href: '/article' },
+  { label: 'Berita', href: '/article' },
   { label: 'Kontak', href: '/contact' },
 ];
 
-export default function ManagementPage() {
+// 2. Fungsi untuk mengambil data pengurus dari Supabase
+async function getPengurus() {
+  const { data, error } = await supabase
+    .from('pengurus')
+    .select('*')
+    .order('id', { ascending: true }); // Bisa diganti false jika ingin yang terbaru di atas
+
+  if (error) {
+    console.error('Error fetching pengurus:', error);
+    return [];
+  }
+  return data as PengurusItem[];
+}
+
+export default async function ManagementPage() {
+  // 3. Panggil data pengurus
+  const pengurus = await getPengurus();
+
   return (
     <main className="min-h-screen bg-ladBlack text-white font-sans">
       <section className="relative overflow-hidden">
@@ -30,7 +56,7 @@ export default function ManagementPage() {
           <div className="container mx-auto flex items-center justify-between px-4 py-3 md:px-6">
             <div className="flex items-center gap-3">
               <Image
-                src="/Logo LAD bg hitam.jpg.jpeg"
+                src="/Logo LAD 3D.png"
                 alt="Logo Lembaga Adat Desa Gubugklakah"
                 width={46}
                 height={46}
@@ -58,17 +84,41 @@ export default function ManagementPage() {
       </section>
 
       <section className="container mx-auto max-w-5xl px-4 py-16">
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            ['Ketua', 'Menyusun arah dan program adat desa'],
-            ['Sekretaris', 'Mengelola administrasi dan dokumen lembaga'],
-            ['Bendahara', 'Mengawasi keuangan dan kebutuhan kegiatan'],
-          ].map(([jabatan, tugas]) => (
-            <div key={jabatan} className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
-              <p className="mb-3 text-sm uppercase tracking-[0.2em] text-ladGold">{jabatan}</p>
-              <p className="text-gray-300">{tugas}</p>
-            </div>
-          ))}
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+          
+          {/* 4. Menampilkan data dari Supabase */}
+          {pengurus.length > 0 ? (
+            pengurus.map((item) => (
+              <div 
+                key={item.id} 
+                className="rounded-lg border border-zinc-800 bg-zinc-900 overflow-hidden group hover:border-ladGold/50 transition duration-300"
+              >
+                {/* Bagian Foto */}
+                <div className="relative w-full h-72 md:h-80 overflow-hidden bg-black/50">
+                  <img
+                    src={item.image_url}
+                    alt={`Foto ${item.nama}`}
+                    className="h-full w-full object-cover group-hover:scale-105 transition duration-500"
+                  />
+                </div>
+                
+                {/* Bagian Teks (Nama & Jabatan) */}
+                <div className="p-6 text-center border-t border-ladGold/20">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-ladGold">
+                    {item.jabatan}
+                  </p>
+                  <h3 className="text-xl font-bold text-white">
+                    {item.nama}
+                  </h3>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400 col-span-full text-center py-10">
+              Data kepengurusan belum ditambahkan.
+            </p>
+          )}
+
         </div>
       </section>
     </main>
