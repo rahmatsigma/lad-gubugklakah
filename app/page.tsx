@@ -9,11 +9,13 @@ type BeritaItem = {
   konten: string;
 };
 
+// 1. Fungsi getBerita sekarang dibatasi hanya mengambil 3 data terbaru
 async function getBerita() {
   const { data: berita, error } = await supabase
     .from('berita')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(3); // <-- Tambahan limit 3 di sini
 
   if (error) {
     console.error('Error fetching data:', error);
@@ -45,7 +47,7 @@ export default async function Home() {
           <div className="container mx-auto flex items-center justify-between px-4 py-3 md:px-6">
             <div className="flex items-center gap-3">
               <Image
-                src="/Logo LAD bg hitam.jpg.jpeg"
+                src="/Logo LAD 3D.png"
                 alt="Logo Lembaga Adat Desa Gubugklakah"
                 width={46}
                 height={46}
@@ -61,7 +63,7 @@ export default async function Home() {
               <Link href="/history" className="transition hover:text-ladGold">Sejarah Desa</Link>
               <Link href="/management" className="transition hover:text-ladGold">Kepengurusan</Link>
               <Link href="/galery" className="transition hover:text-ladGold">Galeri</Link>
-              <Link href="/article" className="transition hover:text-ladGold">Artikel</Link>
+              <Link href="/article" className="transition hover:text-ladGold">Berita</Link>
               <Link href="/contact" className="transition hover:text-ladGold">Kontak</Link>
             </nav>
           </div>
@@ -102,6 +104,18 @@ export default async function Home() {
             <p className="text-gray-500">Belum ada berita yang dipublikasikan.</p>
           )}
         </div>
+
+        {/* 2. Tombol Arahkan ke Halaman Artikel */}
+        {berita.length > 0 && (
+          <div className="mt-10 flex justify-center">
+            <Link 
+              href="/article" 
+              className="inline-block bg-ladGold text-black font-bold px-8 py-3 rounded-full hover:bg-ladGoldDark transition duration-300"
+            >
+              Lihat Semua Berita
+            </Link>
+          </div>
+        )}
       </section>
 
       <footer className="bg-zinc-950 py-8 border-t border-ladGoldDark/20 text-center">
