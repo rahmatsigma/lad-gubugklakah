@@ -50,35 +50,27 @@ export default async function ArticlePage() {
           playsInline
           aria-label="Video latar belakang Desa Gubugklakah"
         />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.15),_transparent_40%)]" />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.18),_transparent_38%)]" />
 
         <SiteHeader />
 
         <div className="page-hero-inner relative z-10 container mx-auto max-w-5xl px-4">
-          <div className="mx-auto max-w-4xl rounded-[24px] border border-white/10 bg-black/25 p-4 text-center shadow-[0_16px_40px_rgba(0,0,0,0.22)] backdrop-blur-sm md:p-8 md:text-left">
+          <div className="mx-auto max-w-3xl rounded-[24px] border border-white/10 bg-black/25 p-4 text-center shadow-[0_16px_40px_rgba(0,0,0,0.22)] backdrop-blur-sm md:p-8 md:text-left">
             <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-ladGold sm:text-xs">
               Artikel
             </p>
             <h2 className="max-w-2xl text-2xl font-bold leading-tight text-white drop-shadow-lg sm:text-3xl md:text-5xl">
-              Kisah, edukasi, dan inspirasi desa
+              Berita dan Informasi Desa
             </h2>
-            <div className="mt-5 max-w-3xl rounded-lg border border-white/10 bg-black/30 p-4 backdrop-blur-md md:mt-8 md:p-6">
-              <p className="mb-3 text-sm text-gray-300 md:text-base">
-                Artikel ini menjadi wadah untuk menyampaikan gagasan, pengalaman, serta informasi yang memperkuat pelestarian budaya dan semangat gotong royong.
-              </p>
-              <p className="text-sm text-gray-300 md:text-base">
-                Melalui tulisan dan dokumentasi, masyarakat dapat belajar tentang tradisi, sejarah, dan inovasi yang menjaga Desa Gubugklakah tetap relevan dan maju.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      <ScrollReveal className="content-shell container mx-auto max-w-5xl px-4 py-20">
+      <ScrollReveal className="content-shell container mx-auto max-w-5xl px-4 py-16">
         <div className="rounded-t-3xl border-t border-ladGold/20 bg-black/30 px-4 py-8 md:px-6 md:py-10">
           {beritaData.length > 0 ? (
-            <div className="space-y-24">
+            <div className="space-y-20">
               {beritaData.map((item) => (
                 <div
                   key={item.id}

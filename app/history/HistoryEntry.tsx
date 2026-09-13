@@ -32,8 +32,8 @@ export default function HistoryEntry({ item, index }: { item: SejarahItem; index
       }`}
     >
       <div
-        className={`order-2 w-full transition-all duration-500 ease-out ${
-          expanded ? 'md:order-1 md:w-full' : 'md:w-5/12 md:flex-shrink-0'
+        className={`order-1 w-full transition-all duration-500 ease-out ${
+          expanded ? 'md:order-1 md:w-full' : 'md:order-1 md:w-5/12 md:flex-shrink-0'
         }`}
       >
         {item.image_url && (
@@ -51,8 +51,8 @@ export default function HistoryEntry({ item, index }: { item: SejarahItem; index
       </div>
 
       <div
-        className={`order-1 flex-1 space-y-4 transition-all duration-500 ${
-          expanded ? 'md:order-2' : 'md:order-1'
+        className={`order-2 flex-1 space-y-4 transition-all duration-500 ${
+          expanded ? 'md:order-2' : 'md:order-2'
         }`}
       >
         <h3 className="inline-block border-b border-ladGold/30 pb-3 text-2xl font-bold text-ladGold md:text-4xl">

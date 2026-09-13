@@ -1,7 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
+import GalleryCard from './GalleryCard';
 import { supabase } from '../../src/lib/supabase';
 
 // Tipe data Galeri
@@ -78,37 +77,8 @@ export default async function GaleryPage() {
         <div className="rounded-t-3xl border-t border-ladGold/20 bg-black/30 px-4 py-8 md:px-6 md:py-10">
           {galeriData.length > 0 ? (
             <div className="space-y-24">
-              {galeriData.map((item, index) => (
-                <div 
-                  key={item.id} 
-                  className={`flex flex-col gap-10 items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}
-                >
-                  <div className="flex-1 space-y-4 w-full">
-                    <div className="inline-block bg-zinc-900 border border-zinc-800 text-ladGold text-xs font-bold px-3 py-1 rounded-full mb-2">
-                      {new Date(item.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </div>
-                    <h3 className="text-2xl md:text-4xl font-bold text-white leading-tight">
-                      {item.judul}
-                    </h3>
-                    <div className="text-gray-400 leading-relaxed text-justify space-y-4 mt-4 text-lg">
-                      {item.keterangan.split('\n').map((paragraph, idx) => (
-                        paragraph.trim() !== '' && <p key={idx}>{paragraph}</p>
-                      ))}
-                    </div>
-                  </div>
-
-                  {item.image_url && (
-                    <div className="w-full md:w-6/12 flex-shrink-0 group">
-                      <div className="relative p-2 bg-zinc-900 rounded-lg border border-zinc-800 overflow-hidden">
-                        <img 
-                          src={item.image_url} 
-                          alt={item.judul} 
-                          className="w-full h-[300px] md:h-[400px] rounded object-cover shadow-2xl group-hover:scale-105 transition duration-700"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
+              {galeriData.map((item) => (
+                <GalleryCard key={item.id} item={item} />
               ))}
             </div>
           ) : (

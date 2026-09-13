@@ -35,9 +35,58 @@ async function getPengurus() {
   return data as PengurusItem[];
 }
 
+function getJabatanRank(jabatan: string) {
+  const normalized = jabatan.toLowerCase();
+
+  if (normalized.includes('ketua')) return 1;
+  if (normalized.includes('wakil')) return 2;
+  if (normalized.includes('sekretaris')) return 3;
+  if (normalized.includes('bendahara')) return 4;
+  if (normalized.includes('pelaksana')) return 5;
+  if (normalized.includes('anggota')) return 6;
+
+  return 99;
+}
+
 export default async function ManagementPage() {
   // 3. Panggil data pengurus
   const pengurus = await getPengurus();
+  const topLeadership = pengurus.filter((item) => {
+    const normalized = item.jabatan.toLowerCase();
+    return normalized.includes('ketua') || normalized.includes('wakil');
+  });
+
+  const managementMembers = pengurus.filter((item) => {
+    const normalized = item.jabatan.toLowerCase();
+    return !(
+      normalized.includes('ketua') ||
+      normalized.includes('wakil') ||
+      normalized.includes('anggota') ||
+      normalized.includes('pelaksana') ||
+      normalized.includes('sekretaris') ||
+      normalized.includes('bendahara')
+    );
+  });
+
+  const otherMembers = pengurus.filter((item) => {
+    const normalized = item.jabatan.toLowerCase();
+    return !(
+      normalized.includes('ketua') ||
+      normalized.includes('wakil')
+    );
+  });
+
+  const pengurusTerurut = [
+    ...topLeadership.sort((a, b) => getJabatanRank(a.jabatan) - getJabatanRank(b.jabatan)),
+    ...otherMembers.sort((a, b) => {
+      const rankDiff = getJabatanRank(a.jabatan) - getJabatanRank(b.jabatan);
+      if (rankDiff !== 0) return rankDiff;
+      return a.nama.localeCompare(b.nama, 'id');
+    }),
+  ];
+
+  const leadershipCount = topLeadership.length;
+  const memberCount = otherMembers.length;
 
   return (
     <main className="min-h-screen bg-ladBlack text-white font-sans">
@@ -70,36 +119,61 @@ export default async function ManagementPage() {
 
       <ScrollReveal className="content-shell container mx-auto max-w-5xl px-4 py-16">
         <div className="rounded-t-3xl border-t border-ladGold/20 bg-black/30 px-4 py-8 md:px-6 md:py-10">
-          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-            {pengurus.length > 0 ? (
-              pengurus.map((item) => (
-                <div 
-                  key={item.id} 
-                  className="rounded-lg border border-zinc-800 bg-zinc-900 overflow-hidden group hover:border-ladGold/50 transition duration-300"
-                >
-                  <div className="relative w-full h-72 md:h-80 overflow-hidden bg-black/50">
-                    <img
-                      src={item.image_url}
-                      alt={`Foto ${item.nama}`}
-                      className="h-full w-full object-cover group-hover:scale-105 transition duration-500"
-                    />
-                  </div>
-                  <div className="p-6 text-center border-t border-ladGold/20">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-ladGold">
-                      {item.jabatan}
-                    </p>
-                    <h3 className="text-xl font-bold text-white">
-                      {item.nama}
-                    </h3>
-                  </div>
+          {pengurusTerurut.length > 0 ? (
+            <div className="space-y-8">
+              {leadershipCount > 0 && (
+                <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-2">
+                  {pengurusTerurut.slice(0, leadershipCount).map((item) => (
+                    <div
+                      key={item.id}
+                      className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition duration-300 hover:border-ladGold/50"
+                    >
+                      <div className="relative h-72 w-full overflow-hidden bg-black/50 md:h-80">
+                        <img
+                          src={item.image_url}
+                          alt={`Foto ${item.nama}`}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="border-t border-ladGold/20 p-6 text-center">
+                        <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-ladGold">
+                          {item.jabatan}
+                        </p>
+                        <h3 className="text-xl font-bold text-white">{item.nama}</h3>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))
-            ) : (
-              <p className="text-gray-400 col-span-full text-center py-10">
-                Data kepengurusan belum ditambahkan.
-              </p>
-            )}
-          </div>
+              )}
+
+              {memberCount > 0 && (
+                <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+                  {pengurusTerurut.slice(leadershipCount).map((item) => (
+                    <div
+                      key={item.id}
+                      className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition duration-300 hover:border-ladGold/50"
+                    >
+                      <div className="relative h-72 w-full overflow-hidden bg-black/50 md:h-80">
+                        <img
+                          src={item.image_url}
+                          alt={`Foto ${item.nama}`}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="border-t border-ladGold/20 p-6 text-center">
+                        <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-ladGold">
+                          {item.jabatan}
+                        </p>
+                        <h3 className="text-xl font-bold text-white">{item.nama}</h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <p className="py-10 text-center text-gray-400">Data kepengurusan belum ditambahkan.</p>
+          )}
         </div>
       </ScrollReveal>
     </main>
