@@ -37,7 +37,7 @@ export default function GalleryCard({ item }: { item: GaleriItem }) {
       {item.image_url && (
         <div
           className={`w-full flex-shrink-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            expanded ? 'order-1 md:-translate-y-2 md:scale-[1.01]' : 'order-2 md:w-5/12 md:translate-y-0 md:scale-100'
+            expanded ? 'order-1 md:-translate-y-2 md:scale-[1.01]' : 'order-1 md:w-5/12 md:translate-y-0 md:scale-100'
           }`}
         >
           <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-2 shadow-[0_18px_45px_rgba(0,0,0,0.25)]">
@@ -54,7 +54,7 @@ export default function GalleryCard({ item }: { item: GaleriItem }) {
 
       <div
         className={`w-full flex-1 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          expanded ? 'order-2 md:translate-y-2' : 'order-1'
+          expanded ? 'order-2 md:translate-y-2' : 'order-2'
         }`}
       >
         <div className="mb-3 inline-block rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs font-bold text-ladGold">

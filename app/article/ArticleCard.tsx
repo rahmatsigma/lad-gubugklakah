@@ -37,8 +37,8 @@ export default function ArticleCard({ item }: { item: BeritaItem }) {
     >
       {primaryImage && (
         <div
-          className={`order-2 w-full transition-all duration-500 ease-out ${
-            expanded ? 'md:order-1 md:w-full' : 'md:w-5/12 md:flex-shrink-0'
+          className={`order-1 w-full transition-all duration-500 ease-out ${
+            expanded ? 'md:order-1 md:w-full' : 'md:order-1 md:w-5/12 md:flex-shrink-0'
           }`}
         >
           <div className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 p-2 shadow-[0_18px_45px_rgba(0,0,0,0.25)]">
@@ -55,8 +55,8 @@ export default function ArticleCard({ item }: { item: BeritaItem }) {
       )}
 
       <div
-        className={`order-1 flex-1 space-y-4 transition-all duration-500 ${
-          expanded ? 'md:order-2' : 'md:order-1'
+        className={`order-2 flex-1 space-y-4 transition-all duration-500 ${
+          expanded ? 'md:order-2' : 'md:order-2'
         }`}
       >
         <h3 className="inline-block border-b border-ladGold/30 pb-3 text-2xl font-bold text-ladGold md:text-4xl">
