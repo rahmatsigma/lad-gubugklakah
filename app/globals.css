@@ -6,9 +6,32 @@
   --color-ladGoldDark: #aa8c2c;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #000000;
   color: #ffffff;
+}
+
+.page-hero {
+  min-height: 100vh;
+}
+
+.page-hero-inner {
+  min-height: calc(100vh - 76px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: clamp(3rem, 7vh, 5rem);
+  padding-bottom: clamp(2rem, 4vh, 3rem);
+}
+
+.content-shell {
+  position: relative;
+  z-index: 10;
+  margin-top: -1rem;
 }
 
 @keyframes fadeUp {
@@ -24,4 +47,17 @@ body {
 
 .animate-fade-up {
   animation: fadeUp 0.8s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
