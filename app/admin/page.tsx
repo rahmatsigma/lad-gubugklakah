@@ -7,6 +7,7 @@ import PengurusAdmin from "./components/pengurusan";
 import GaleriAdmin from "./components/galeri";
 import SejarahAdmin from "./components/sejarah";
 import KontakAdmin from "./components/kontak";
+import ArtikelAdmin from "./components/artikel";
 
 export default function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,6 +59,7 @@ export default function AdminPage() {
           <button onClick={() => setActiveTab("galeri")} className={`text-left px-4 py-3 rounded transition ${activeTab === "galeri" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Galeri Foto</button>
           <button onClick={() => setActiveTab("sejarah")} className={`text-left px-4 py-3 rounded transition ${activeTab === "sejarah" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Sejarah Desa</button>
           <button onClick={() => setActiveTab("kontak")} className={`text-left px-4 py-3 rounded transition ${activeTab === "kontak" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Info Kontak</button>
+          <button onClick={() => setActiveTab("artikel")} className={`text-left px-4 py-3 rounded transition ${activeTab === "artikel" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Artikel (Teks)</button>
         </nav>
         <button onClick={() => { setIsLoggedIn(false); setPassword(""); }} className="mt-auto bg-red-950 text-red-500 py-3 rounded hover:bg-red-900 transition">Logout</button>
       </aside>
@@ -69,6 +71,7 @@ export default function AdminPage() {
         {activeTab === "galeri" && <GaleriAdmin />}
         {activeTab === "sejarah" && <SejarahAdmin />}
         {activeTab === "kontak" && <KontakAdmin />}
+        {activeTab === "artikel" && <ArtikelAdmin />}
       </main>
     </div>
   );

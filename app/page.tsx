@@ -47,22 +47,18 @@ export default async function Home() {
 
         <SiteHeader />
 
-        <div className="page-hero-inner relative z-10 container mx-auto px-4 text-center">
-          <div className="mx-auto flex max-w-6xl flex-col items-center justify-center">
-            <div className="mb-5 inline-flex items-center rounded-full border border-ladGold/30 bg-black/20 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ladGold/90 backdrop-blur-sm md:text-xs">
-              Lembaga Adat Desa
-            </div>
-
-            <div className="max-w-6xl rounded-[28px] border border-white/5 bg-black/10 px-3 py-4 shadow-[0_16px_40px_rgba(0,0,0,0.25)] backdrop-blur-[2px] md:px-6 md:py-6">
-              <h2 className="mb-4 text-3xl font-bold leading-[0.95] tracking-[-0.04em] text-ladGold drop-shadow-lg sm:text-4xl md:text-7xl">
-                Menjaga Tradisi, <span className="text-white">Membangun Desa</span>
-              </h2>
-
-              <p className="mx-auto max-w-4xl text-base leading-relaxed text-gray-200 sm:text-lg md:text-2xl">
-                Selamat datang di portal resmi Lembaga Adat Desa Gubugklakah. Pusat informasi kegiatan, pelestarian budaya, dan kearifan lokal.
-              </p>
-            </div>
+        <div className="page-hero-inner relative z-10 container mx-auto flex flex-col items-center justify-center px-4 text-center">
+          <div className="mb-4 inline-flex items-center rounded-full border border-ladGold/30 bg-black/20 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ladGold/90 backdrop-blur-sm md:text-xs">
+            Lembaga Adat Desa
           </div>
+
+          <h2 className="mb-4 max-w-5xl text-3xl font-bold leading-tight text-ladGold drop-shadow-lg sm:text-4xl md:text-6xl">
+            Menjaga Tradisi, <span className="text-white">Membangun Desa</span>
+          </h2>
+
+          <p className="max-w-3xl text-base text-gray-200 sm:text-lg md:text-xl">
+            Selamat datang di portal resmi Lembaga Adat Desa Gubugklakah. Pusat informasi kegiatan, pelestarian budaya, dan kearifan lokal.
+          </p>
         </div>
       </section>
 
@@ -91,7 +87,7 @@ export default async function Home() {
           {berita.length > 0 && (
             <div className="mt-10 flex justify-center">
               <Link 
-                href="/article" 
+                href="/berita" 
                 className="inline-block bg-ladGold text-black font-bold px-8 py-3 rounded-full hover:bg-ladGoldDark transition duration-300"
               >
                 Lihat Semua Berita
