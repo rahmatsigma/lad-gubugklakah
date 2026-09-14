@@ -18,7 +18,8 @@ const navItems = [
   { label: 'Sejarah Desa', href: '/history' },
   { label: 'Kepengurusan', href: '/management' },
   { label: 'Galeri', href: '/galery' },
-  { label: 'Berita', href: '/article' },
+  { label: 'Berita', href: '/berita' },
+  { label: 'Artikel', href: '/artikel' },
   { label: 'Kontak', href: '/contact' },
 ];
 
