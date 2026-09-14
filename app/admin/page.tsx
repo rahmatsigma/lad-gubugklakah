@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 // Import semua komponen yang sudah kita pisah
 import BeritaAdmin from "./components/berita";
 import PengurusAdmin from "./components/pengurusan";
@@ -15,10 +16,17 @@ export default function AdminPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [activeTab, setActiveTab] = useState("berita");
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
+  const confirmLogout = () => {
+    setIsLoggedIn(false);
+    setPassword("");
+    setShowLogoutConfirm(false);
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "gubugklakah123") {
+    if (password === "2025LAD-Gubugklakah") {
       setIsLoggedIn(true); setErrorMsg("");
     } else {
       setErrorMsg("Password salah, Bang!");
@@ -43,6 +51,13 @@ export default function AdminPage() {
           </div>
           {errorMsg && <p className="text-red-500 text-sm mb-4">{errorMsg}</p>}
           <button type="submit" className="w-full bg-ladGold text-black font-bold py-3 rounded hover:bg-ladGoldDark transition">Masuk</button>
+
+          <Link href="/" className="flex items-center justify-center gap-2 mt-4 w-full py-3 rounded border border-zinc-700 text-gray-400 hover:bg-zinc-800 hover:text-white transition text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Kembali ke Beranda
+          </Link>
         </form>
       </div>
     );
@@ -61,7 +76,7 @@ export default function AdminPage() {
           <button onClick={() => setActiveTab("kontak")} className={`text-left px-4 py-3 rounded transition ${activeTab === "kontak" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Info Kontak</button>
           <button onClick={() => setActiveTab("artikel")} className={`text-left px-4 py-3 rounded transition ${activeTab === "artikel" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Artikel </button>
         </nav>
-        <button onClick={() => { setIsLoggedIn(false); setPassword(""); }} className="mt-auto bg-red-950 text-red-500 py-3 rounded hover:bg-red-900 transition">Logout</button>
+        <button onClick={() => setShowLogoutConfirm(true)} className="mt-auto bg-red-950 text-red-500 py-3 rounded hover:bg-red-900 transition font-semibold">Logout</button>
       </aside>
 
       <main className="flex-1 p-8 overflow-y-auto h-screen">
@@ -73,6 +88,39 @@ export default function AdminPage() {
         {activeTab === "kontak" && <KontakAdmin />}
         {activeTab === "artikel" && <ArtikelAdmin />}
       </main>
+      {/* Modal Konfirmasi Logout */}
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl p-8 w-full max-w-sm mx-4 text-center animate-in fade-in">
+            {/* Ikon Peringatan */}
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 rounded-full bg-red-950 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-red-500">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                </svg>
+              </div>
+            </div>
+
+            <h3 className="text-xl font-bold text-white mb-2">Konfirmasi Logout</h3>
+            <p className="text-gray-400 mb-6 text-sm">Apakah kamu yakin ingin keluar dari panel admin?</p>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="flex-1 py-2.5 rounded-lg border border-zinc-600 text-gray-300 hover:bg-zinc-800 transition font-medium"
+              >
+                Batal
+              </button>
+              <button
+                onClick={confirmLogout}
+                className="flex-1 py-2.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-bold"
+              >
+                Ya, Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
