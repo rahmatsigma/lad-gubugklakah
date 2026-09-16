@@ -48,8 +48,15 @@ export default async function Home() {
         <SiteHeader />
 
         <div className="page-hero-inner relative z-10 container mx-auto flex flex-col items-center justify-center px-4 text-center">
-          <div className="mb-4 inline-flex items-center rounded-full border border-ladGold/30 bg-black/20 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ladGold/90 backdrop-blur-sm md:text-xs">
-            Lembaga Adat Desa
+          <div className="mb-4 inline-flex items-center gap-3 rounded-full border border-ladGold/30 bg-black/20 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-ladGold/90 backdrop-blur-sm md:text-xs">
+            <Image
+              src="/Logo%20LAD%203D.png"
+              alt="Logo LAD Gubugklakah"
+              width={38}
+              height={38}
+              className="rounded-full object-cover ring-1 ring-ladGold/40"
+            />
+            <span>Lembaga Adat Desa</span>
           </div>
 
           <h2 className="mb-4 max-w-5xl text-3xl font-bold leading-tight text-ladGold drop-shadow-lg sm:text-4xl md:text-6xl">
