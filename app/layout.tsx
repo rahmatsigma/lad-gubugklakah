@@ -30,6 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
+      <head>
+        {/* Paste kode verifikasi Google di sini */}
+        <meta name="google-site-verification" content="lOiCtnSprI_8rZZv2U2yFZ9BOJ5_eLMwUoY4DtKgyQ0" />
+      </head>
       <body>{children}</body>
     </html>
   );
