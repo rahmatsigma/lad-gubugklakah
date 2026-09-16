@@ -62,7 +62,7 @@ export default async function ArticlePage() {
               Berita 
             </p>
             <h2 className="max-w-2xl text-2xl font-bold leading-tight text-white drop-shadow-lg sm:text-3xl md:text-5xl">
-              Berita dan Informasi Adat Desaa Gubugklakah
+              Berita dan Informasi Adat Desa Gubugklakah
             </h2>
           </div>
         </div>
