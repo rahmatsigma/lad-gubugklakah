@@ -17,6 +17,7 @@ export default function AdminPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [activeTab, setActiveTab] = useState("berita");
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const confirmLogout = () => {
     setIsLoggedIn(false);
@@ -94,7 +95,40 @@ export default function AdminPage() {
 
   // ================= TAMPILAN DASHBOARD =================
   return (
-    <div className="min-h-screen flex bg-ladBlack text-white">
+    <div className="min-h-screen flex flex-col md:flex-row bg-ladBlack text-white">
+      {/* Mobile header with hamburger */}
+      <div className="w-full md:hidden border-b border-zinc-800 bg-zinc-950 flex items-center justify-between p-4">
+        <button
+          onClick={() => setIsMobileMenuOpen((s) => !s)}
+          aria-label="Toggle admin menu"
+          aria-expanded={isMobileMenuOpen}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-white/5 text-white transition"
+        >
+          <span className="flex flex-col gap-1.5">
+            <span className={`block h-0.5 w-5 rounded-full bg-current transition ${isMobileMenuOpen ? 'translate-y-2 rotate-45' : ''}`} />
+            <span className={`block h-0.5 w-5 rounded-full bg-current transition ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-0.5 w-5 rounded-full bg-current transition ${isMobileMenuOpen ? '-translate-y-2 -rotate-45' : ''}`} />
+          </span>
+        </button>
+
+        <h2 className="text-lg font-bold text-ladGold">Panel Admin</h2>
+
+        <button onClick={() => setShowLogoutConfirm(true)} className="text-sm text-red-500">Logout</button>
+      </div>
+
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-zinc-950 border-b border-zinc-800 p-3">
+          <nav className="flex flex-col gap-2">
+            <button onClick={() => { setActiveTab("berita"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "berita" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Berita</button>
+            <button onClick={() => { setActiveTab("pengurus"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "pengurus" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Pengurus Lembaga</button>
+            <button onClick={() => { setActiveTab("galeri"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "galeri" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Galeri Kegiatan</button>
+            <button onClick={() => { setActiveTab("sejarah"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "sejarah" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Sejarah Desa</button>
+            <button onClick={() => { setActiveTab("kontak"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "kontak" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Info Kontak</button>
+            <button onClick={() => { setActiveTab("artikel"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "artikel" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Artikel</button>
+          </nav>
+        </div>
+      )}
+
       <aside className="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col p-6 hidden md:flex">
         <h2 className="text-2xl font-bold text-ladGold mb-10 border-b border-zinc-800 pb-4">Panel Admin</h2>
         <nav className="flex flex-col gap-3 flex-1">
@@ -108,7 +142,7 @@ export default function AdminPage() {
         <button onClick={() => setShowLogoutConfirm(true)} className="mt-auto bg-red-950 text-red-500 py-3 rounded hover:bg-red-900 transition font-semibold">Logout</button>
       </aside>
 
-      <main className="flex-1 p-8 overflow-y-auto h-screen">
+      <main className="flex-1 p-8 overflow-y-auto">
         {/* Render Komponen Sesuai Tab yang Aktif */}
         {activeTab === "berita" && <BeritaAdmin />}
         {activeTab === "pengurus" && <PengurusAdmin />}
