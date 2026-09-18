@@ -9,7 +9,7 @@ type SejarahItem = {
   image_url: string;
 };
 
-export default function HistoryEntry({ item, index }: { item: SejarahItem; index: number }) {
+export default function HistoryEntry({ item }: { item: SejarahItem }) {
   const [expanded, setExpanded] = useState(false);
   const maxPreviewWords = 50;
 

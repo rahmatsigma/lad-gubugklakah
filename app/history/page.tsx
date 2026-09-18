@@ -1,6 +1,4 @@
 export const revalidate = 0;
-import Image from 'next/image';
-import Link from 'next/link';
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
 import Footer from '../components/footer';
@@ -12,16 +10,6 @@ type SejarahItem = {
   konten: string;
   image_url: string;
 };
-
-const navItems = [
-  { label: 'Beranda', href: '/' },
-  { label: 'Sejarah Desa', href: '/history' },
-  { label: 'Kepengurusan', href: '/management' },
-  { label: 'Galeri', href: '/galery' },
-  { label: 'Berita', href: '/berita' },
-  { label: 'Artikel', href: '/artikel' },
-  { label: 'Kontak', href: '/contact' },
-];
 
 async function getSejarah() {
   // Mengambil seluruh data sejarah dan mengurutkannya dari ID terkecil (Bab Pertama) ke terbesar
@@ -75,8 +63,8 @@ export default async function HistoryPage() {
         <div className="rounded-t-3xl border-t border-ladGold/20 bg-black/30 px-4 py-8 md:px-6 md:py-10">
           {sejarahData.length > 0 ? (
             <div className="space-y-20">
-              {sejarahData.map((item, index) => (
-                <HistoryEntry key={item.id} item={item} index={index} />
+              {sejarahData.map((item) => (
+                <HistoryEntry key={item.id} item={item} />
               ))}
             </div>
           ) : (
@@ -84,6 +72,8 @@ export default async function HistoryPage() {
           )}
         </div>
       </ScrollReveal>
+
+      <Footer />
     </main>
   );
 }

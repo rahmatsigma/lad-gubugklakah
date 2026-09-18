@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../../src/lib/supabase";
 
 type SosmedItem = { id: number; platform: string; url: string; };
@@ -9,12 +9,12 @@ export default function SosmedAdmin() {
   const [form, setForm] = useState({ platform: "instagram", url: "" });
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => { fetchSosmed(); }, []);
-
-  const fetchSosmed = async () => {
+  const fetchSosmed = useCallback(async () => {
     const { data } = await supabase.from("sosmed").select("*").order("id", { ascending: true });
     if (data) setSosmed(data as SosmedItem[]);
-  };
+  }, []);
+
+  useEffect(() => { fetchSosmed(); }, [fetchSosmed]);
 
   const simpan = async (e: React.FormEvent) => {
     e.preventDefault(); setIsLoading(true);

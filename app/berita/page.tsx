@@ -1,7 +1,5 @@
 export const revalidate = 0;
 
-import Image from 'next/image';
-import Link from 'next/link';
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
 import Footer from '../components/footer';
@@ -15,16 +13,6 @@ type BeritaItem = {
   konten: string;
   image_url: string;
 };
-
-const navItems = [
-  { label: 'Beranda', href: '/' },
-  { label: 'Sejarah Desa', href: '/history' },
-  { label: 'Kepengurusan', href: '/management' },
-  { label: 'Galeri', href: '/galery' },
-  { label: 'Berita', href: '/berita' },
-  { label: 'Artikel', href: '/artikel' },
-  { label: 'Kontak', href: '/contact' },
-];
 
 async function getBeritaLengkap() {
   const { data, error } = await supabase

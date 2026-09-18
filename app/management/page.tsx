@@ -1,7 +1,5 @@
 export const revalidate = 0;
 
-import Image from 'next/image';
-import Link from 'next/link';
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
 import { supabase } from '../../src/lib/supabase';
@@ -13,16 +11,6 @@ type PengurusItem = {
   jabatan: string;
   image_url: string;
 };
-
-const navItems = [
-  { label: 'Beranda', href: '/' },
-  { label: 'Sejarah Desa', href: '/history' },
-  { label: 'Kepengurusan', href: '/management' },
-  { label: 'Galeri', href: '/galery' },
-  { label: 'Berita', href: '/berita' },
-  { label: 'Artikel', href: '/artikel' },
-  { label: 'Kontak', href: '/contact' },
-];
 
 // 2. Fungsi untuk mengambil data pengurus dari Supabase
 async function getPengurus() {
@@ -57,18 +45,6 @@ export default async function ManagementPage() {
   const topLeadership = pengurus.filter((item) => {
     const normalized = item.jabatan.toLowerCase();
     return normalized.includes('ketua') || normalized.includes('wakil');
-  });
-
-  const managementMembers = pengurus.filter((item) => {
-    const normalized = item.jabatan.toLowerCase();
-    return !(
-      normalized.includes('ketua') ||
-      normalized.includes('wakil') ||
-      normalized.includes('anggota') ||
-      normalized.includes('pelaksana') ||
-      normalized.includes('sekretaris') ||
-      normalized.includes('bendahara')
-    );
   });
 
   const otherMembers = pengurus.filter((item) => {

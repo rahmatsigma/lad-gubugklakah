@@ -15,17 +15,6 @@ type GaleriItem = {
   image_url: string;
 };
 
-// Menu Navigasi
-const navItems = [
-  { label: 'Beranda', href: '/' },
-  { label: 'Sejarah Desa', href: '/history' },
-  { label: 'Kepengurusan', href: '/management' },
-  { label: 'Galeri', href: '/galery' },
-  { label: 'Berita', href: '/berita' },
-  { label: 'Artikel', href: '/artikel' },
-  { label: 'Kontak', href: '/contact' },
-];
-
 // Fungsi untuk mengambil data galeri dari Supabase
 async function getGaleri() {
   const { data, error } = await supabase

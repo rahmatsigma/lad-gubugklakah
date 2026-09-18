@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../../src/lib/supabase";
 
 type BeritaItem = { id: number; created_at: string; judul: string; konten: string; image_url: string; };
@@ -15,19 +15,19 @@ export default function BeritaAdmin() {
   const [editId, setEditId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => { fetchBerita(); }, []);
-
-  const fetchBerita = async () => {
+  const fetchBerita = useCallback(async () => {
     const { data } = await supabase.from("berita").select("*").order("created_at", { ascending: false });
     if (data) setBerita(data as BeritaItem[]);
-  };
+  }, []);
+
+  useEffect(() => { fetchBerita(); }, [fetchBerita]);
 
   // --- FUNGSI SIMPAN/UPDATE ---
   const simpan = async (e: React.FormEvent) => {
     e.preventDefault(); setIsLoading(true);
     
     // Kita mulai dengan foto-foto yang sudah ada (tidak dihapus)
-    let finalImageUrls: string[] = [...existingImages];
+    const finalImageUrls: string[] = [...existingImages];
 
     // Jika admin mengupload foto BARU
     if (files.length > 0) {

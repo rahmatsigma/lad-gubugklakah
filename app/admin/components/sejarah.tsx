@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../../src/lib/supabase";
 
 type SejarahItem = { id: number; created_at: string; judul: string; konten: string; image_url: string; };
@@ -11,13 +11,13 @@ export default function SejarahAdmin() {
   const [editId, setEditId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => { fetchSejarah(); }, []);
-
-  const fetchSejarah = async () => {
+  const fetchSejarah = useCallback(async () => {
     // Diurutkan berdasarkan ID agar urutan bab sejarahnya sesuai saat pertama kali diinput
     const { data } = await supabase.from("sejarah").select("*").order("id", { ascending: true });
     if (data) setSejarah(data as SejarahItem[]);
-  };
+  }, []);
+
+  useEffect(() => { fetchSejarah(); }, [fetchSejarah]);
 
   const simpan = async (e: React.FormEvent) => {
     e.preventDefault(); setIsLoading(true);

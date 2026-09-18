@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../../src/lib/supabase";
 
 type PengurusItem = { id: number; nama: string; jabatan: string; image_url: string; };
@@ -11,12 +11,12 @@ export default function PengurusAdmin() {
   const [editId, setEditId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => { fetchPengurus(); }, []);
-
-  const fetchPengurus = async () => {
+  const fetchPengurus = useCallback(async () => {
     const { data } = await supabase.from("pengurus").select("*").order("id", { ascending: false });
     if (data) setPengurus(data as PengurusItem[]);
-  };
+  }, []);
+
+  useEffect(() => { fetchPengurus(); }, [fetchPengurus]);
 
   const simpan = async (e: React.FormEvent) => {
     e.preventDefault(); setIsLoading(true);
