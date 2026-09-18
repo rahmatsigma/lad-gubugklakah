@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
 import GalleryCard from './GalleryCard';
