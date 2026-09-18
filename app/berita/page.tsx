@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
+import Footer from '../components/footer';
 import { supabase } from '../../src/lib/supabase';
 import ArticleCard from './ArticleCard';
 
-type BeritaItem = {
+type BeritaItem = {   
   id: number;
   created_at: string;
   judul: string;
@@ -89,11 +90,7 @@ export default async function ArticlePage() {
         </div>
       </ScrollReveal>
 
-      <footer className="mt-10 border-t border-ladGoldDark/20 bg-zinc-950 py-8 text-center">
-        <p className="text-sm text-gray-500">
-          © {new Date().getFullYear()} Lembaga Adat Desa Gubugklakah. All rights reserved.
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }

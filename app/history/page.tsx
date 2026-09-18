@@ -1,9 +1,9 @@
 export const revalidate = 0;
-
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
+import Footer from '../components/footer';
 import { supabase } from '../../src/lib/supabase';
 
 type SejarahItem = {

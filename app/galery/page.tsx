@@ -3,6 +3,7 @@ export const revalidate = 0;
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
 import GalleryCard from './GalleryCard';
+import Footer from '../components/footer';
 import { supabase } from '../../src/lib/supabase';
 
 // Tipe data Galeri
@@ -90,11 +91,7 @@ export default async function GaleryPage() {
         </div>
       </ScrollReveal>
 
-      <footer className="bg-zinc-950 py-8 border-t border-ladGoldDark/20 text-center mt-10">
-        <p className="text-gray-500 text-sm">
-          © {new Date().getFullYear()} Lembaga Adat Desa Gubugklakah. All rights reserved.
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }

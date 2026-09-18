@@ -1,9 +1,9 @@
 export const revalidate = 0;
-
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from './components/ScrollReveal';
 import SiteHeader from './components/SiteHeader';
+import Footer from './components/footer';
 import { supabase } from '../src/lib/supabase';
 
 type BeritaItem = {
@@ -106,11 +106,7 @@ export default async function Home() {
         </div>
       </ScrollReveal>
 
-      <footer className="bg-zinc-950 py-8 border-t border-ladGoldDark/20 text-center">
-        <p className="text-gray-500">
-          © {new Date().getFullYear()} Lembaga Adat Desa Gubugklakah. All rights reserved.
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }

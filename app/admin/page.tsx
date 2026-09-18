@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-// Import semua komponen yang sudah kita pisah
+import SosmedAdmin from "./components/sosmed";
 import BeritaAdmin from "./components/berita";
 import PengurusAdmin from "./components/pengurusan";
 import GaleriAdmin from "./components/galeri";
@@ -125,7 +125,7 @@ export default function AdminPage() {
             <button onClick={() => { setActiveTab("sejarah"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "sejarah" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Sejarah Desa</button>
             <button onClick={() => { setActiveTab("kontak"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "kontak" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Info Kontak</button>
             <button onClick={() => { setActiveTab("artikel"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "artikel" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Artikel</button>
-          </nav>
+            <button onClick={() => { setActiveTab("sosmed"); setIsMobileMenuOpen(false); }} className={`text-left px-4 py-3 rounded transition ${activeTab === "sosmed" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Media Sosial</button></nav>
         </div>
       )}
 
@@ -138,6 +138,7 @@ export default function AdminPage() {
           <button onClick={() => setActiveTab("sejarah")} className={`text-left px-4 py-3 rounded transition ${activeTab === "sejarah" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Sejarah Desa</button>
           <button onClick={() => setActiveTab("kontak")} className={`text-left px-4 py-3 rounded transition ${activeTab === "kontak" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Info Kontak</button>
           <button onClick={() => setActiveTab("artikel")} className={`text-left px-4 py-3 rounded transition ${activeTab === "artikel" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Artikel </button>
+          <button onClick={() => setActiveTab("sosmed")} className={`text-left px-4 py-3 rounded transition ${activeTab === "sosmed" ? "bg-ladGold text-black font-bold" : "hover:bg-zinc-800 text-gray-300"}`}>Media Sosial</button>
         </nav>
         <button onClick={() => setShowLogoutConfirm(true)} className="mt-auto bg-red-950 text-red-500 py-3 rounded hover:bg-red-900 transition font-semibold">Logout</button>
       </aside>
@@ -150,6 +151,7 @@ export default function AdminPage() {
         {activeTab === "sejarah" && <SejarahAdmin />}
         {activeTab === "kontak" && <KontakAdmin />}
         {activeTab === "artikel" && <ArtikelAdmin />}
+        {activeTab === "sosmed" && <SosmedAdmin />}
       </main>
       {/* Modal Konfirmasi Logout */}
       {showLogoutConfirm && (
