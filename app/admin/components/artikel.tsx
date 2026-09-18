@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../../src/lib/supabase";
 
 type ArtikelItem = { id: number; created_at: string; judul: string; konten: string; };
@@ -10,12 +10,12 @@ export default function ArtikelAdmin() {
   const [editId, setEditId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => { fetchArtikel(); }, []);
-
-  const fetchArtikel = async () => {
+  const fetchArtikel = useCallback(async () => {
     const { data } = await supabase.from("artikel").select("*").order("created_at", { ascending: false });
     if (data) setArtikel(data as ArtikelItem[]);
-  };
+  }, []);
+
+  useEffect(() => { fetchArtikel(); }, [fetchArtikel]);
 
   const simpan = async (e: React.FormEvent) => {
     e.preventDefault(); setIsLoading(true);

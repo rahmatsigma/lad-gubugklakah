@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lad-gubugklakah.vercel.app"),
   title: "Lembaga Adat Desa Gubugklakah",
   description: "Portal Resmi Lembaga Adat Desa Gubugklakah, Poncokusumo, Malang. Menjaga tradisi, pelestarian budaya, sejarah, dan kearifan lokal Tengger.",
   keywords: "lad gubugklakah, lembaga adat desa gubugklakah, gubugklakah, sejarah gubugklakah, budaya tengger, poncokusumo malang",

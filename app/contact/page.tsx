@@ -1,20 +1,8 @@
 export const revalidate = 0;
-import Image from 'next/image';
-import Link from 'next/link';
 import ScrollReveal from '../components/ScrollReveal';
 import SiteHeader from '../components/SiteHeader';
 import Footer from '../components/footer';
 import { supabase } from '../../src/lib/supabase';
-
-// Menu Navigasi
-const navItems = [
-  { label: 'Beranda', href: '/' },
-  { label: 'Sejarah Desa', href: '/history' },
-  { label: 'Kepengurusan', href: '/management' },
-  { label: 'Galeri', href: '/galery' },
-  { label: 'Berita', href: '/berita' },
-  { label: 'Kontak', href: '/contact' },
-];
 
 // Fungsi untuk mengambil data kontak dari Supabase
 async function getKontak() {

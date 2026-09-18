@@ -1,17 +1,17 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../../src/lib/supabase";
 
 export default function KontakAdmin() {
   const [konten, setKonten] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => { fetchKontak(); }, []);
-
-  const fetchKontak = async () => {
+  const fetchKontak = useCallback(async () => {
     const { data } = await supabase.from("info_desa").select("*").eq("kategori", "kontak").single();
     if (data) setKonten(data.konten);
-  };
+  }, []);
+
+  useEffect(() => { fetchKontak(); }, [fetchKontak]);
 
   const simpan = async () => {
     setIsLoading(true);
