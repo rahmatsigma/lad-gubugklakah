@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SiteHeader from '../components/SiteHeader';
 import ScrollReveal from '../components/ScrollReveal';
 import { supabase } from '../../src/lib/supabase';
+import Footer from '../components/footer';
 
 type ArtikelItem = {
   id: number;
@@ -112,11 +113,7 @@ export default async function ArtikelPage() {
         </div>
       </ScrollReveal>
 
-      <footer className="mt-10 border-t border-ladGoldDark/20 bg-zinc-950 py-8 text-center">
-        <p className="text-sm text-gray-500">
-          © {new Date().getFullYear()} Lembaga Adat Desa Gubugklakah. All rights reserved.
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }
