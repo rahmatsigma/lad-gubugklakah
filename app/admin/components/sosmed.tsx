@@ -30,6 +30,27 @@ export default function SosmedAdmin() {
     fetchSosmed();
   };
 
+  const isWhatsapp = form.platform === "whatsapp";
+
+  // Ekstrak nomor dari URL wa.me jika sudah ada formatnya
+  const waNumber = isWhatsapp && form.url.startsWith("https://wa.me/")
+    ? form.url.replace("https://wa.me/", "")
+    : form.url;
+
+  const handlePlatformChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setForm({ platform: e.target.value, url: "" });
+  };
+
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isWhatsapp) {
+      // Hanya izinkan angka dan tanda + di depan
+      const cleaned = e.target.value.replace(/[^0-9+]/g, "");
+      setForm({ ...form, url: "https://wa.me/" + cleaned });
+    } else {
+      setForm({ ...form, url: e.target.value });
+    }
+  };
+
   return (
     <div>
       <h1 className="text-3xl font-bold text-white mb-8 border-l-4 border-ladGold pl-4">Kelola Sosial Media</h1>
@@ -42,7 +63,7 @@ export default function SosmedAdmin() {
             <label className="block text-sm text-gray-400 mb-2">Pilih Platform</label>
             <select 
               value={form.platform} 
-              onChange={(e) => setForm({...form, platform: e.target.value})} 
+              onChange={handlePlatformChange}
               className="w-full bg-black border border-zinc-700 p-3 rounded mb-4 focus:border-ladGold outline-none text-white"
             >
               <option value="instagram">Instagram</option>
@@ -52,12 +73,55 @@ export default function SosmedAdmin() {
               <option value="whatsapp">WhatsApp</option>
             </select>
             
-            <label className="block text-sm text-gray-400 mb-2">URL / Link Profil</label>
-            <input 
-              type="url" required placeholder="https://instagram.com/..." 
-              value={form.url} onChange={(e) => setForm({...form, url: e.target.value})} 
-              className="w-full bg-black border border-zinc-700 p-3 rounded mb-6 focus:border-ladGold outline-none text-white" 
-            />
+            {isWhatsapp ? (
+              /* INPUT KHUSUS WHATSAPP */
+              <div className="mb-6">
+                <label className="block text-sm text-gray-400 mb-2">
+                  Nomor WhatsApp
+                  <span className="ml-2 text-xs text-ladGold/70">(format internasional, contoh: 628123456789)</span>
+                </label>
+                <div className="flex items-center rounded border border-zinc-700 bg-black focus-within:border-ladGold overflow-hidden">
+                  {/* PREFIX DIKUNCI */}
+                  <span className="px-3 py-3 text-sm text-ladGold bg-zinc-800 border-r border-zinc-700 whitespace-nowrap select-none font-mono">
+                    https://wa.me/
+                  </span>
+                  {/* INPUT ANGKA SAJA */}
+                  <input
+                    type="text"
+                    required
+                    inputMode="numeric"
+                    placeholder="628123456789"
+                    value={waNumber}
+                    onChange={handleUrlChange}
+                    className="flex-1 bg-transparent p-3 text-white outline-none font-mono"
+                  />
+                </div>
+                {waNumber && (
+                  <p className="mt-2 text-xs text-green-500">
+                    ✓ Link tersimpan: <span className="font-mono">https://wa.me/{waNumber}</span>
+                  </p>
+                )}
+              </div>
+            ) : (
+              /* INPUT NORMAL UNTUK PLATFORM LAIN */
+              <div className="mb-6">
+                <label className="block text-sm text-gray-400 mb-2">URL / Link Profil</label>
+                <input 
+                  type="url"
+                  required
+                  placeholder={
+                    form.platform === "instagram" ? "https://instagram.com/username" :
+                    form.platform === "tiktok" ? "https://tiktok.com/@username" :
+                    form.platform === "youtube" ? "https://youtube.com/@channel" :
+                    form.platform === "facebook" ? "https://facebook.com/page" :
+                    "https://..."
+                  }
+                  value={form.url}
+                  onChange={handleUrlChange}
+                  className="w-full bg-black border border-zinc-700 p-3 rounded focus:border-ladGold outline-none text-white"
+                />
+              </div>
+            )}
             
             <button type="submit" disabled={isLoading} className="w-full bg-ladGold text-black py-3 rounded font-bold hover:bg-ladGoldDark transition">
               {isLoading ? "Menyimpan..." : "Tambahkan Sosmed"}
